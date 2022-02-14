@@ -45,9 +45,9 @@ wheelCir = wheelDiameterMM*math.pi
 Length = 150
 Laps = 5
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
-odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 175.8)
-#gyro = GyroSensor()
-#gyro.reset()
+odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 156.6)
+gyro = GyroSensor()
+gyro.reset()
 #odoDrive.gyro= gyro
 odoDrive.wheel = Wheel(56,27)
 message = "Laps: "+str(Laps)+"Length of track: "+ str(Length)+"Press center button to reset and go"
@@ -61,9 +61,26 @@ left.reset()
 right.reset()
 odoDrive.odometry_start()
 time.sleep(1)
+startingVal = gyro.value()
+
 for k in range(Laps):
      odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
+     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
+     odoDrive.turn_degrees(10,gyro.value()-startingVal)
+     sleep(.5)
+
+     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
+
+
+     sleep(1)
      odoDrive.on_for_distance(speed = -40,distance_mm = Length*10)
+     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
+     odoDrive.turn_degrees(10,gyro.value()-startingVal)
+     sleep(.5)
+     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
+odoDrive.stop()
+
+
 
     # odoDrive.reset()
     # odoDrive.odometry_stop()

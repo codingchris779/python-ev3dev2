@@ -42,7 +42,7 @@ countsPerRotLM =360
 wheelDiameterMM=68.88
 wheelCir = wheelDiameterMM*math.pi
 #dont foget its in cm
-Length = 200
+Length = 150
 Laps = 5
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
 odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 156.5)
@@ -60,35 +60,16 @@ disp.update()
 left.reset()
 right.reset()
 odoDrive.odometry_start()
-#.turn_degrees(20,360*10)
-# time.sleep(1)
+time.sleep(1)
 startingVal = gyro.value()
-for k in range(Laps):
-    odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
-    odoDrive.turn_degrees(10,gyro.value()-startingVal-180)
-    odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
-    odoDrive.turn_degrees(10,gyro.value()-startingVal)
+odoDrive.turn_degrees(-35,360*2)
+print(gyro.value())
+sleep(2)
 
 
-
-
-"This is old code that im trying to change"
-# for k in range(Laps):
-#     odoDrive.on_to_coordinates(speed=35,x_target_mm=0,y_target_mm=Length*10)
-#     odoDrive.turn_to_angle(10,270)
-#     sleep(2)
-#     odoDrive.on_to_coordinates(speed=35,x_target_mm=0,y_target_mm=0)
-#     odoDrive.turn_to_angle(10,90)
-
-odoDrive.turn_to_angle(20,90)
-    # odoDrive.on_for_distance(speed = 20,distance_mm = Length*10)
-    # odoDrive.turn_degrees(speed= 10, degrees = 180)
-    # odoDrive.on_for_distance(speed = 20,distance_mm = Length*10)
-    # odoDrive.turn_degrees(speed= 10, degrees = 180)
 
 
     # odoDrive.reset()
     # odoDrive.odometry_stop()
     # odoDrive.odometry_start()
     # time.sleep(.3)
-odoDrive.odometry_stop()
