@@ -28,9 +28,9 @@ from ev3dev2.wheel import EV3Tire
 from ev3dev2.sensor.lego import GyroSensor
 def playChuckIntro():
     spkr = Sound()
-    spkr.speak("FUCK")
     print("run first")
-    spkr.play_file("cake.wav")
+    for x in range(5):
+        spkr.play_file("cake.wav")
 t=Thread(target=playChuckIntro)
 #t.start()
 btn = Button()
@@ -42,10 +42,11 @@ countsPerRotLM =360
 wheelDiameterMM=68.88
 wheelCir = wheelDiameterMM*math.pi
 #dont foget its in cm
-Length = 200
+Length = 150
 Laps = 5
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
-odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 156.5)
+#156.3
+odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 154.3)
 gyro = GyroSensor()
 gyro.reset()
 #odoDrive.gyro= gyro
@@ -62,24 +63,32 @@ right.reset()
 odoDrive.odometry_start()
 #.turn_degrees(20,360*10)
 # time.sleep(1)
-startingVal = gyro.value()
-for k in range(Laps):
-    odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
-    odoDrive.turn_degrees(10,gyro.value()-startingVal-180)
-    odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
-    odoDrive.turn_degrees(10,gyro.value()-startingVal)
+# startingVal = gyro.value()
+# for k in range(Laps):
+#     odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
+#     odoDrive.turn_degrees(-10,gyro.value()-startingVal-180)
+#     odoDrive.turn_degrees(10,gyro.value()-startingVal-180)
+
+#     odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
+#     odoDrive.turn_degrees(-10,gyro.value()-startingVal)
+#     odoDrive.turn_degrees(-10,gyro.value()-startingVal)
+
 
 
 
 
 "This is old code that im trying to change"
-# for k in range(Laps):
-#     odoDrive.on_to_coordinates(speed=35,x_target_mm=0,y_target_mm=Length*10)
-#     odoDrive.turn_to_angle(10,270)
-#     sleep(2)
-#     odoDrive.on_to_coordinates(speed=35,x_target_mm=0,y_target_mm=0)
-#     odoDrive.turn_to_angle(10,90)
+for k in range(Laps):
+    odoDrive.on_to_coordinates(speed=55,x_target_mm=0,y_target_mm=Length*10)
+    odoDrive.turn_to_angle(10,270)
+    print(str(odoDrive.x_pos_mm)+" "+str(odoDrive.y_pos_mm)+" "+str(math.degrees(odoDrive.theta))+" ")
 
+    sleep(2)
+    odoDrive.on_to_coordinates(speed=55,x_target_mm=0,y_target_mm=0)
+    odoDrive.turn_to_angle(10,90)
+    print(str(odoDrive.x_pos_mm)+" "+str(odoDrive.y_pos_mm)+" "+str(math.degrees(odoDrive.theta))+" ")
+
+    print(k)
 odoDrive.turn_to_angle(20,90)
     # odoDrive.on_for_distance(speed = 20,distance_mm = Length*10)
     # odoDrive.turn_degrees(speed= 10, degrees = 180)
