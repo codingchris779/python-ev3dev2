@@ -45,7 +45,7 @@ wheelCir = wheelDiameterMM*math.pi
 Length = 150
 Laps = 5
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
-odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 156.5)
+odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 154.3)
 gyro = GyroSensor()
 gyro.reset()
 #odoDrive.gyro= gyro
@@ -62,7 +62,8 @@ right.reset()
 odoDrive.odometry_start()
 time.sleep(1)
 startingVal = gyro.value()
-odoDrive.turn_degrees(-35,360*2)
+odoDrive.turn_degrees(-35,180)
+sleep(2)
 print(gyro.value())
 sleep(2)
 
