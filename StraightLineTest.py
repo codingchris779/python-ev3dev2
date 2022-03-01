@@ -28,10 +28,9 @@ from ev3dev2.wheel import EV3Tire
 from ev3dev2.sensor.lego import GyroSensor
 def playChuckIntro():
     spkr = Sound()
-    spkr.speak("FUCK")
     print("run first")
     spkr.play_file("cake.wav")
-t=Thread(target=playChuckIntro)
+#t=Thread(target=playChuckIntro)
 #t.start()
 btn = Button()
 disp = Display()
@@ -42,47 +41,13 @@ countsPerRotLM =360
 wheelDiameterMM=68.88
 wheelCir = wheelDiameterMM*math.pi
 #dont foget its in cm
-Length = 150
-Laps = 5
+Length = 90
+Laps = 4
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
-odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 156.6)
+odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 154.5)
 gyro = GyroSensor()
 gyro.reset()
 #odoDrive.gyro= gyro
 odoDrive.wheel = Wheel(56,27)
-message = "Laps: "+str(Laps)+"Length of track: "+ str(Length)+"Press center button to reset and go"
-disp.draw.text((10,10), message,font=fonts.load('luBS14'))
-disp.update()
-# while(not btn.enter):
-#     print(Length)
-disp.clear()
-disp.update()
-left.reset()
-right.reset()
 odoDrive.odometry_start()
-time.sleep(1)
-startingVal = gyro.value()
-
-for k in range(Laps):
-     odoDrive.on_for_distance(speed = 40,distance_mm = Length*10)
-     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
-     odoDrive.turn_degrees(10,gyro.value()-startingVal)
-     sleep(.5)
-
-     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
-
-
-     sleep(1)
-     odoDrive.on_for_distance(speed = -40,distance_mm = Length*10)
-     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
-     odoDrive.turn_degrees(10,gyro.value()-startingVal)
-     sleep(.5)
-     print(str(gyro.value())+" "+str(math.degrees(odoDrive.theta)))
-odoDrive.stop()
-
-
-
-    # odoDrive.reset()
-    # odoDrive.odometry_stop()
-    # odoDrive.odometry_start()
-    # time.sleep(.3)
+odoDrive.on_to_coordinates(30,0,84*25.4)
