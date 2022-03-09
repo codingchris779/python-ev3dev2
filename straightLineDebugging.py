@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import math
 import string
-from time import sleep
+from time import sleep, time
 import array
 import fcntl
 from timeit import timeit
@@ -9,6 +9,7 @@ from ev3dev2.motor import Motor, LargeMotor, OUTPUT_A, OUTPUT_C, SpeedPercent, M
 from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from threading import Thread
+import time
 from ev3dev2.led import Leds
 from ev3dev2.sound import Sound
 from ev3dev2.wheel import Wheel
@@ -17,8 +18,7 @@ from  ev3dev2.display import Display
 import ev3dev2.fonts as fonts
 import os
 import sys
-import time
-#!/usr/bin/env python
+
 
 import array
 import fcntl
@@ -38,18 +38,14 @@ wheelCir = wheelDiameterMM*math.pi
 Length = 90
 Laps = 4
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
-odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 150)
+odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 154.5)
 gyro = GyroSensor()
 gyro.reset()
-odoDrive.wheel = Wheel(56,28)
-gyro.calibrate()
-print(sys.argv[0])
+#odoDrive.gyro= gyro
+odoDrive.wheel = Wheel(56,27)
 odoDrive.odometry_start()
-#odoDrive.on_to_coordinates(30,0,12*25.4)
-odoDrive.turn_degrees(30,180)
-print(str(gyro.value()))
-time.sleep(1)
-#odoDrive.on_to_coordinates(30,48*25.4,12*25.4)
-odoDrive.odometry_stop()
-
-
+odoDrive.gyro=gyro
+odoDrive.on_to_coordinates(30,0,150*25.4)
+print(str(odoDrive.x_pos_mm)+" "+str(odoDrive.y_pos_mm)+" "+str(math.degrees(odoDrive.theta))+" \n")
+odoDrive.on_to_coordinates(30,0,150*25.4)
+odoDrive.turn_to_angle(30,90)
