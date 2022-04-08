@@ -5,7 +5,7 @@ from time import sleep
 import array
 import fcntl
 from timeit import timeit
-from ev3dev2.motor import Motor, LargeMotor, OUTPUT_A, OUTPUT_C, SpeedPercent, MoveTank,MoveDifferential
+from ev3dev2.motor import Motor, LargeMotor, OUTPUT_A, OUTPUT_C, SpeedPercent, MoveTank,MoveDifferential,MediumMotor
 from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from threading import Thread
@@ -35,6 +35,8 @@ def playChuckIntro():
     spkr = Sound()
     print("run first")
     spkr.play_file("cake.wav")
+light = MediumMotor()
+light.run_forever()
 t=Thread(target=playChuckIntro)
 t.start()
 btn = Button()

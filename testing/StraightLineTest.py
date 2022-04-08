@@ -48,29 +48,42 @@ Length = 90
 Laps = 4
 drive = MoveTank(OUTPUT_A,OUTPUT_C)
 odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_C,EV3Tire, 140)
+odoDrive.wheel = Wheel(43.2,22)
 gyro = GyroSensor()
 gyro.reset()
 gyro.calibrate()
 #odoDrive.gyro= gyro
 fileTime = int(time.perf_counter())
+#This is a quick and dirty way to generate semi unique file names
+#File names will be unique to each session but will not be unique across sessions
+#Because of this the files should be moved into a new dir at the end of each testing session to avoid accidental data loss
 writeFile = open("logs2/"+str(int(fileTime/1))+".txt",'w')
-odoDrive.wheel = Wheel(56,28)
 odoDrive.odometry_start()
 startTime=time.perf_counter()
 odoDrive.on(30,30)
 lastTime = startTime
 dt=time.perf_counter()-startTime
-finalPos = 60*25.4
+finalPos = 12*25.4
 while(odoDrive.y_pos_mm<finalPos):
     dt=time.perf_counter()-lastTime
     leftPos = left.position
     rightPos = right.position
     theta = gyro.value()
     writeFile.write("{0:.10f}\t{1}\t{2}\t{3}\t{4}\n".format(dt,leftPos,rightPos,theta,math.degrees(odoDrive.theta)))
+    
+    # if  abs(theta)<1:
+    #     odoDrive.on(30,30)
+    # elif theta<0:
+    #     odoDrive.on(30,33)
+    # else :
+    #     odoDrive.on(33,30)
+    
+
     print(str(odoDrive.y_pos_mm))
     lastTime=time.perf_counter()
 time.sleep(.5)
 dt=time.perf_counter()-lastTime
 writeFile.write("{0:.10f}\t{1}\t{2}\t{3}\t{4}\n".format(dt,leftPos,rightPos,theta,math.degrees(odoDrive.theta)))
 writeFile.close()
+print(str(odoDrive.y_pos_mm))
 odoDrive.stop()
