@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
-from ev3dev2.wheel import EV3Tire
+from ev3dev2 import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
+from ev3dev2 import EV3Tire
 STUD_MM = 8
 # test with a robot that:
 # - uses the standard wheels known as EV3Tire

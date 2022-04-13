@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from ev3dev2.sound import Sound
-from time import sleep
+from ev3dev2 import Sound
+
 sound = Sound()
 #please download the sounds folder to your ev3 browser
 #testing sound of a dog bark
@@ -14,5 +14,5 @@ sound.play_song((
     ('D5', 'h')
 ))
 #sleep(10)
-#testing sound of another file 
+#testing sound of another file
 sound.beep()

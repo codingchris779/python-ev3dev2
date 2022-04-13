@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from ev3dev2.sensor.lego import TouchSensor, ColorSensor
+from ev3dev2 import TouchSensor, ColorSensor
 from time import sleep
 
-cl = ColorSensor() 
+cl = ColorSensor()
 ts = TouchSensor()
 
 # Stop program by long-pressing touch sensor button

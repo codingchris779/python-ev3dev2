@@ -1,6 +1,4 @@
 {
-    "files.associations": {
-        "iomanip": "cpp",
-        "iostream": "cpp"
-    }
+    "files.eol": "\n",
+    "ev3devBrowser.download.exclude": "{**/.*,venv,LICENSE,README.md}"
 }

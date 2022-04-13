@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from ev3dev2.led import Leds
+from ev3dev2 import Leds
 from time import sleep
 
 leds = Leds()

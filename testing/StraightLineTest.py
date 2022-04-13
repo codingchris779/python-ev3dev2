@@ -1,33 +1,15 @@
 #!/usr/bin/env python3
-from distutils.file_util import write_file
 import math
-import string
-from time import sleep
-import array
-import fcntl
-from timeit import timeit
-from weakref import WeakMethod
-from ev3dev2.motor import Motor, LargeMotor, OUTPUT_A, OUTPUT_C, SpeedPercent, MoveTank,MoveDifferential
-from ev3dev2.sensor import INPUT_1
-from ev3dev2.sensor.lego import TouchSensor
-from threading import Thread
-from ev3dev2.led import Leds
-from ev3dev2.sound import Sound
-from ev3dev2.wheel import Wheel
-from time import sleep
-from  ev3dev2.display import Display
-import ev3dev2.fonts as fonts
-import os
-import sys
+from ev3dev2 import LargeMotor, OUTPUT_A, OUTPUT_C, MoveTank,MoveDifferential
+from ev3dev2 import Sound
+from ev3dev2 import Wheel
+from ev3dev2 import Display
 import time
 #!/usr/bin/env python
 
-import array
-import fcntl
-import sys
-from ev3dev2.button import Button
-from ev3dev2.wheel import EV3Tire
-from ev3dev2.sensor.lego import GyroSensor
+from ev3dev2 import Button
+from ev3dev2 import EV3Tire
+from ev3dev2 import GyroSensor
 def playChuckIntro():
     spkr = Sound()
     print("run first")
@@ -70,14 +52,14 @@ while(odoDrive.y_pos_mm<finalPos):
     rightPos = right.position
     theta = gyro.value()
     writeFile.write("{0:.10f}\t{1}\t{2}\t{3}\t{4}\n".format(dt,leftPos,rightPos,theta,math.degrees(odoDrive.theta)))
-    
+
     # if  abs(theta)<1:
     #     odoDrive.on(30,30)
     # elif theta<0:
     #     odoDrive.on(30,33)
     # else :
     #     odoDrive.on(33,30)
-    
+
 
     print(str(odoDrive.y_pos_mm))
     lastTime=time.perf_counter()

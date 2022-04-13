@@ -1,32 +1,12 @@
 #!/usr/bin/env python3
-from distutils.file_util import write_file
 import math
-from operator import truediv
-import string
-from time import sleep
-import array
-import fcntl
-from timeit import timeit
-from weakref import WeakMethod
-from ev3dev2.motor import Motor, LargeMotor, OUTPUT_A, OUTPUT_C,OUTPUT_D, SpeedPercent, MoveTank,MoveDifferential
-from ev3dev2.sensor import INPUT_1
-from ev3dev2.sensor.lego import TouchSensor, UltrasonicSensor
-from threading import Thread
-from ev3dev2.led import Leds
-from ev3dev2.sound import Sound
-from ev3dev2.wheel import Wheel
-from time import sleep
-from  ev3dev2.display import Display
-import ev3dev2.fonts as fonts
-import os
-import sys
-import time
-import array
-import fcntl
-import sys
-from ev3dev2.button import Button
-from ev3dev2.wheel import EV3Tire
-from ev3dev2.sensor.lego import GyroSensor
+from ev3dev2 import LargeMotor, OUTPUT_A, OUTPUT_D
+from ev3dev2 import INPUT_1
+from ev3dev2 import UltrasonicSensor
+from ev3dev2 import Wheel
+from ev3dev2 import Display
+from ev3dev2 import Button
+
 btn = Button()
 disp = Display()
 left = LargeMotor(OUTPUT_A)
