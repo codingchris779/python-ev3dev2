@@ -28,4 +28,4 @@ while not butt.check_buttons( buttons=["backspace"]):
        # mid.on_for_rotations(speed=-30,rotations=.1)
     else:
         mid.off()
-        print("normalize")
+        print(mid.position)

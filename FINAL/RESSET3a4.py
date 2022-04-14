@@ -6,6 +6,7 @@ from ev3dev2.motor import LargeMotor, MediumMotor, MoveTank, MoveDifferential, O
 from ev3dev2.sensor.lego import GyroSensor, UltrasonicSensor, ColorSensor
 from ev3dev2.sensor import INPUT_2, INPUT_3
 from ev3dev2.sound import Sound
+from ev3dev2.button import Button
 import time
 spk = Sound()
 givenBoxType = 1
@@ -62,9 +63,7 @@ def processBarcodeData(sensor1, sensor2):
         print(n)
 
     #assume almost no black
-    if(blkLengths[0]>100):
-        return 11
-    if(len(whtLengths))==1 and whtLengths[0]>180:
+    if(len(whtLengths))==1 and whtLengths[0]>200:
         return 1
     if(blkLengths[0]>80):
         return 3
@@ -73,6 +72,9 @@ def processBarcodeData(sensor1, sensor2):
     return 2
 
 print("Start")
+button = Button()
+while not button.check_buttons(buttons=["up"]):
+    print("waiting")
 left = LargeMotor(OUTPUT_A)
 right = LargeMotor(OUTPUT_D)
 myWheel = Wheel(diameter_mm=43.2, width_mm=22)
@@ -80,16 +82,18 @@ drive = MoveTank(OUTPUT_A, OUTPUT_D)
 odoDrive = MoveDifferential(OUTPUT_A, OUTPUT_D, EV3Tire, 156)
 odoDrive.wheel = myWheel
 mid = MediumMotor()
+odoDrive.set_polarity(LargeMotor.POLARITY_NORMAL)
+
 MkUltra = UltrasonicSensor()
 sense1Val = [0]
 sense2Val = [0]
 sensor1 = ColorSensor(INPUT_2)
 sensor2 = ColorSensor(INPUT_3)
-mid.on_to_position(100,6000)
+mid.on_to_position(100,3000)
 odoDrive.on_for_distance(-10,15.5*25.4)
 odoDrive.odometry_start()
 odoDrive.turn_degrees(30, 90)
-mid.on_to_position(80, 2000)
+mid.on_to_position(80, 500)
 
 while MkUltra.value() > 50 and MkUltra.value()<2000:
     print(MkUltra.value())
@@ -102,7 +106,7 @@ odoDrive.on_for_distance(-10,5)
 print(str(sensor1.reflected_light_intensity))
 print(str(sensor2.reflected_light_intensity))
 odoDrive.off()
-while mid.position<22000:
+while mid.position<20000:
     sense1Val.append(sensor1.reflected_light_intensity)
     sense2Val.append(sensor2.reflected_light_intensity)
     #print("sense1 {0} Sense 2 {1}".format(sensor1.reflected_light_intensity,sensor2.reflected_light_intensity))
@@ -110,16 +114,18 @@ while mid.position<22000:
 mid.off()
 real_box = processBarcodeData(sense1Val,sense2Val)
 if real_box == givenBoxType:
-    spk.speak("The box is Correct and the box type is {0}".format(real_box))
+    spk.speak("The box is Correct and the box type is {0}".format(real_box)) 
+    print("The box is Correct and the box type is {0}".format(real_box))
 else:
-    spk.speak("Box is wrong expected type {0} but the box was type {1}".format(givenBoxType,real_box))
+    spk.speak("Box is wrong expected type {0} but the box was type {1}".format(givenBoxType,real_box)) 
+    print("Box is wrong expected \ntype {0} but the box was type {1}".format(givenBoxType,real_box))
 
 odoDrive.on_for_distance(10,8*25.4)
 odoDrive.turn_degrees(-15, 45)
 odoDrive.on_for_distance(-20,6*25.4)
 odoDrive.turn_degrees(-15, 45)
 odoDrive.on_for_distance(-30,18*25.4)
-mid.on_to_position(80, 3000)
+mid.on_to_position(80, 1500)
 odoDrive.on_for_distance(30,6*25.4)
-odoDrive.set_polarity(LargeMotor.POLARITY_INVERSED)
 
+time.sleep(5)

@@ -18,6 +18,9 @@ myWheel = Wheel(diameter_mm=43.2, width_mm=  22)
 drive = MoveTank(OUTPUT_A,OUTPUT_D)
 odoDrive = MoveDifferential(OUTPUT_A,OUTPUT_D,EV3Tire, 156)
 odoDrive.wheel=myWheel
+odoDrive.set_polarity(LargeMotor.POLARITY_NORMAL)
+while not button.check_buttons(buttons=["up"]):
+    print("waiting")
 gyro = GyroSensor()
 centerBoxDist = 3
 gyro.reset()
@@ -104,9 +107,9 @@ while odoDrive.y_pos_mm<0:
 odoDrive.off()
 errorSum=0
 count=0
-# while not button.check_buttons(buttons=["up"]):
-#     print("waiting")
-input("press Enter")
+while not button.check_buttons(buttons=["up"]):
+    print("waiting")
+# input("press Enter")
 time.sleep(5)
 while odoDrive.y_pos_mm>-12*25.4:
     errorSum+=180-gyro.value()
