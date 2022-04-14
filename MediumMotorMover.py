@@ -23,7 +23,7 @@ while not butt.check_buttons( buttons=["backspace"]):
         #mid.on_for_rotations(speed=30,rotations=.1)
     elif((butt.check_buttons( buttons=["left"]))):
         mid.on(-80)
-    elif((butt.check_buttons( buttons=["upd"]))):
+    elif((butt.check_buttons( buttons=["up"]))):
         mid.reset()
        # mid.on_for_rotations(speed=-30,rotations=.1)
     else:
